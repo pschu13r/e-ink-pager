@@ -4,6 +4,11 @@ Userscript for e-ink readers. It adds two buttons (▲ ▼) and turns web pages 
 
 Originally built to read c't and other heise magazines in the browser on a Boox Go 10.2.
 
+## Demo
+
+<img width="350" alt="demo of the changes" src="https://github.com/user-attachments/assets/e2cba74a-9152-4fb8-9c04-027b63f23503" />
+
+
 ## Installation
 
 1. Use a browser with add-on support, for example Firefox or Fennec for Android.

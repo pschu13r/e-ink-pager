@@ -1,36 +1,36 @@
 # E-Ink Pager
 
-Userscript für E-Ink-Reader. Es blendet zwei Buttons (▲ ▼) ein und blättert Webseiten seitenweise ohne Scroll-Animation. Das vermeidet Ruckeln und Ghosting auf E-Paper-Displays.
+Userscript for e-ink readers. It adds two buttons (▲ ▼) and turns web pages one screen at a time, without scroll animation. This avoids stutter and ghosting on e-paper displays.
 
-Ursprünglich gebaut, um die c't und andere heise-Magazine auf einem Boox Go 10.2 im Browser zu lesen.
+Originally built to read c't and other heise magazines in the browser on a Boox Go 10.2.
 
 ## Installation
 
-1. Browser mit Add-on-Support verwenden, zum Beispiel Firefox oder Fennec für Android.
-2. [Violentmonkey](https://addons.mozilla.org/firefox/addon/violentmonkey/) oder [Tampermonkey](https://addons.mozilla.org/firefox/addon/tampermonkey/) installieren.
-3. Script installieren: **[e-ink-pager.user.js](https://raw.githubusercontent.com/pschu13r/e-ink-pager/main/e-ink-pager.user.js)**
+1. Use a browser with add-on support, for example Firefox or Fennec for Android.
+2. Install [Violentmonkey](https://addons.mozilla.org/firefox/addon/violentmonkey/) or [Tampermonkey](https://addons.mozilla.org/firefox/addon/tampermonkey/).
+3. Install the script: **[e-ink-pager.user.js](https://raw.githubusercontent.com/pschu13r/e-ink-pager/main/e-ink-pager.user.js)**
 
-Updates kommen automatisch über den Script-Manager.
+The script manager installs updates automatically.
 
-## Unterstützte Seiten
+## Supported sites
 
-Standardmäßig aktiv auf `https://www.heise.de/select/*` (c't, iX, Mac & i, Make, c't Fotografie).
+Active by default on `https://www.heise.de/select/*` (c't, iX, Mac & i, Make, c't Fotografie).
 
-Weitere Seiten fügst du in den Script-Einstellungen deines Script-Managers unter **User matches** hinzu. Diese Einträge bleiben bei Updates erhalten.
+To add more sites, open the script settings in your script manager and add them under **User matches**. These entries are kept on updates.
 
-## Anpassen
+## Settings
 
-Am Anfang des Scripts:
+At the top of the script:
 
-| Konstante | Standard | Bedeutung |
+| Constant | Default | Meaning |
 | --- | --- | --- |
-| `OVERLAP` | `0.10` | Anteil der Bildschirmhöhe, der nach dem Blättern sichtbar bleibt |
-| `SIZE` | `54` | Button-Größe in px |
-| `GAP` | `16` | Abstand zum Rand und zwischen den Buttons in px |
+| `OVERLAP` | `0.10` | Share of the screen height that stays visible after a page turn |
+| `SIZE` | `54` | Button size in px |
+| `GAP` | `16` | Gap to the screen edge and between the buttons, in px |
 
-Änderungen direkt im Script werden beim nächsten Update überschrieben.
+The next update overwrites changes made directly in the script.
 
-## Tipps für Boox
+## Tips for Boox
 
-- Refresh-Modus für den Browser auf **HD** oder **Balanced** stellen.
-- Verdeckt ein fester Seiten-Header die erste Zeile, `OVERLAP` auf `0.15` erhöhen.
+- Set the browser's refresh mode to **HD** or **Balanced**.
+- If a fixed page header hides the first line, raise `OVERLAP` to `0.15`.

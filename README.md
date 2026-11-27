@@ -1,6 +1,6 @@
 # E-Ink Pager
 
-Userscript for e-ink readers. It adds two buttons (▲ ▼) and turns web pages one screen at a time, without scroll animation. This avoids stutter and ghosting on e-paper displays.
+Userscript for e-ink readers. It adds two buttons (▲ ▼) and turns web pages one screen at a time, without scroll animation. This avoids stutter and ghosting on e-paper displays. The buttons stay the same size in the bottom-right corner, even when you zoom in.
 
 Originally built to read c't and other heise magazines in the browser on a Boox Go 10.2.
 
@@ -30,7 +30,7 @@ At the top of the script:
 | Constant | Default | Meaning |
 | --- | --- | --- |
 | `OVERLAP` | `0.10` | Share of the screen height that stays visible after a page turn |
-| `SIZE` | `54` | Button size in px |
+| `SIZE` | `72` | Button size in px |
 | `GAP` | `16` | Gap to the screen edge and between the buttons, in px |
 
 The next update overwrites changes made directly in the script.

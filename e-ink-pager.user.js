@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         E-Ink Pager
 // @namespace    https://github.com/pschu13r/e-ink-pager
-// @version      1.4
+// @version      1.41
 // @description  Adds up/down buttons that turn web pages one screen at a time, without scroll animation. For reading on e-ink devices.
 // @homepageURL  https://github.com/pschu13r/e-ink-pager
 // @match        https://www.heise.de/select/*
@@ -27,11 +27,16 @@
   function turn(dir) {
     const height = vv ? vv.height : window.innerHeight;
     window.scrollBy({ top: dir * height * (1 - OVERLAP), behavior: 'instant' });
+    place();    // reposition now ...
+    schedule(); // ... and again once the browser has settled the viewport
   }
 
   // The container is a 0x0 anchor at the bottom-right corner of the visible
   // area (visual viewport). On pinch zoom it moves along and scales inversely,
   // so the buttons keep their size and stay in the bottom-right corner.
+  // Without zoom it is fixed. With zoom it is absolute in document
+  // coordinates: in Gecko (Firefox, Fennec) fixed elements follow the layout
+  // viewport, which drifts away from the visible area after a page turn.
   const box = document.createElement('div');
   Object.assign(box.style, {
     position: 'fixed', left: '0', top: '0', width: '0', height: '0',
@@ -55,15 +60,22 @@
 
   addButton('▲', GAP + SIZE + GAP, -1);
   addButton('▼', GAP, 1);
-  document.body.appendChild(box);
+  document.documentElement.appendChild(box);
 
   let queued = false;
   function place() {
     queued = false;
-    const x = vv ? vv.offsetLeft + vv.width : window.innerWidth;
-    const y = vv ? vv.offsetTop + vv.height : window.innerHeight;
-    const s = vv ? 1 / vv.scale : 1;
-    box.style.transform = `translate(${x}px, ${y}px) scale(${s})`;
+    if (vv && Math.abs(vv.scale - 1) > 0.01) {
+      const left = vv.pageLeft !== undefined ? vv.pageLeft : window.scrollX + vv.offsetLeft;
+      const top = vv.pageTop !== undefined ? vv.pageTop : window.scrollY + vv.offsetTop;
+      box.style.position = 'absolute';
+      box.style.transform = `translate(${left + vv.width}px, ${top + vv.height}px) scale(${1 / vv.scale})`;
+    } else {
+      const x = vv ? vv.offsetLeft + vv.width : window.innerWidth;
+      const y = vv ? vv.offsetTop + vv.height : window.innerHeight;
+      box.style.position = 'fixed';
+      box.style.transform = `translate(${x}px, ${y}px)`;
+    }
   }
   function schedule() {
     if (!queued) { queued = true; requestAnimationFrame(place); }
@@ -74,5 +86,6 @@
     vv.addEventListener('scroll', schedule);
   }
   window.addEventListener('resize', schedule);
+  window.addEventListener('scroll', schedule, { passive: true });
   place();
 })();
